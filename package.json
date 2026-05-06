@@ -1,8 +1,42 @@
 {
 	"name": "blog-customizer",
 	"version": "1.0.0",
-	"main": "index.js",
+	"description": "[Макет проекта](https://www.figma.com/file/FEeiiGLOsE7ktXbPpBxYoD/Custom-dropdown?type=design&node-id=0%3A1&mode=design&t=eXRJnWC6Xsuw0qR4-1)",
+	"homepage": "http://./",
+	"bugs": {
+		"url": "https://github.com/Stufft/blog-customizer/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Stufft/blog-customizer.git"
+	},
 	"license": "MIT",
+	"author": "",
+	"type": "commonjs",
+	"main": "index.js",
+	"scripts": {
+		"build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.js --env env=prod",
+		"start": "webpack serve --config webpack/webpack.config.js --env env=dev",
+		"stylelint": "stylelint \"src/**/*.scss\"",
+		"stylelint:fix": "stylelint \"src/**/*.scss\" --fix",
+		"lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
+		"format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\" --ignore-path ./.prettierignore",
+		"test": "npm run stylelint:fix && npm run lint && npm run format",
+		"prepare": "husky install",
+		"commit": "npm run test && cz",
+		"storybook": "storybook dev -p 6006",
+		"build-storybook": "storybook build"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	},
+	"dependencies": {
+		"clsx": "^2.1.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
 	"devDependencies": {
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
 		"@storybook/addon-essentials": "^8.0.5",
@@ -58,38 +92,14 @@
 		"webpack-cli": "^5.0.2",
 		"webpack-dev-server": "^4.15.0"
 	},
-	"scripts": {
-		"build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.js --env env=prod",
-		"start": "webpack serve --config webpack/webpack.config.js --env env=dev",
-		"stylelint": "stylelint \"src/**/*.scss\"",
-		"stylelint:fix": "stylelint \"src/**/*.scss\" --fix",
-		"lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
-		"format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\" --ignore-path ./.prettierignore",
-		"test": "npm run stylelint:fix && npm run lint && npm run format",
-		"prepare": "husky install",
-		"commit": "npm run test && cz",
-		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build"
-	},
 	"eslintConfig": {
 		"extends": [
 			"plugin:storybook/recommended"
 		]
 	},
-	"dependencies": {
-		"clsx": "^2.1.0",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
-	},
 	"lint-staged": {
 		"*.{css,scss}": "npm run stylelint:fix",
 		"*.{js,jsx,ts,tsx}": "npm run lint",
 		"*.{js,jsx,ts,tsx,json,css,scss,md}": "npm run format"
-	},
-	"config": {
-		"commitizen": {
-			"path": "./node_modules/cz-conventional-changelog"
-		}
-	},
-	"homepage": "./"
+	}
 }
